@@ -16,8 +16,7 @@ MOVE_VALUES = {
 }
 
 
-def rps_calc(guide):
-    rounds = [vals.split(" ") for vals in guide]
+def rps_calc(rounds):
     totalScore = 0
     for round_data in rounds:
         round_score = RESULT_VALUES[round_data[1]]

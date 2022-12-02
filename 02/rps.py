@@ -1,7 +1,8 @@
 from util import christmas_input
 
-TEST_INPUT = christmas_input.file_to_array('test_input.txt')
-INPUT = christmas_input.file_to_array('input.txt')
+TEST_INPUT = [pair.split(" ") for pair in christmas_input.file_to_array('test_input.txt')]
+INPUT = [pair.split(" ") for pair in christmas_input.file_to_array('input.txt')]
+
 
 RESULT_VALUES = {
     "WIN": 6,
@@ -25,8 +26,7 @@ MOVE_VALS = {
 }
 
 
-def rps_score(guide):
-    rounds = [vals.split(" ") for vals in guide]
+def rps_score(rounds):
     totalScore = 0
     for round_moves in rounds:
         totalScore = totalScore + score(round_moves[0], round_moves[1])
