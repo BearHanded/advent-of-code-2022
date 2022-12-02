@@ -1,5 +1,4 @@
 from util import christmas_input
-from itertools import groupby
 
 TEST_INPUT = christmas_input.file_to_array('test_input.txt')
 INPUT = christmas_input.file_to_array('input.txt')
