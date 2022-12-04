@@ -5,9 +5,9 @@ INPUT = christmas_input.file_to_array('input.txt')
 
 
 def find_duplicate(contents):
-    half = len(contents) // 2
-    compartments = [set(contents[:half]), set(contents[half:])]
-    return list(compartments[0] & compartments[1]).pop()
+    compartments = [set(i) for i in contents]
+    overlap = set.intersection(*compartments)
+    return list(overlap).pop()
 
 
 def get_priority(character):
@@ -17,12 +17,28 @@ def get_priority(character):
     return ord(character) - offset
 
 
-def sum_bags(bags):
+# Part One
+def sum_bag_priority(bags):
     total = 0
     for bag in bags:
-        total = total + get_priority(find_duplicate(bag))
+        bag_pivot = len(bag) // 2
+        compartments = [set(bag[:bag_pivot]), set(bag[bag_pivot:])]
+        total = total + get_priority(find_duplicate(compartments))
     return total
 
 
-assert sum_bags(TEST_INPUT) == 157
-print("Part One: ", sum_bags(INPUT))
+# Part Two
+def sum_badges(bags):
+    #  Chunk into groups of 3, get intersection
+    groups = [bags[i:i + 3] for i in range(0, len(bags), 3)]
+    total = 0
+    for group in groups:
+        total = total + get_priority(find_duplicate(group))
+    return total
+
+
+assert sum_bag_priority(TEST_INPUT) == 157
+assert sum_badges(TEST_INPUT) == 70
+
+print("Part One: ", sum_bag_priority(INPUT))
+print("Part Two: ", sum_badges(INPUT))
