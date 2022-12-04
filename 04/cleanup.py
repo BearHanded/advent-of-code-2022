@@ -10,10 +10,7 @@ def total_overlap(pair):
 
 
 def partial_overlap(pair):
-    return (pair[1][0] <= pair[0][0] <= pair[1][1]) or (
-            pair[1][0] <= pair[0][1] <= pair[1][1]) or (
-            pair[0][0] <= pair[1][0] <= pair[0][1]) or (
-            pair[0][0] <= pair[1][1] <= pair[0][1])
+    return pair[0][0] <= pair[1][1] and pair[0][1] >= pair[1][0]
 
 
 def sum_overlaps(orders, total_overlap_only=True):
