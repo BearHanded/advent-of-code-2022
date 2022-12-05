@@ -26,13 +26,14 @@ def file_as_string(filename):
 def file_to_subarray(filename):
     """Chunks a file into subarrays by empty line, with each line as a string"""
     initial_array = file_to_array(filename)
-    return [list(int(i) for i in sub) for ele, sub in groupby(initial_array, key=bool) if ele]
+    return [list(sub) for ele, sub in groupby(initial_array, key=bool) if ele]
 
 
 def file_to_subarray_ints(filename):
     """Chunks a file into subarrays by empty line, with each line already converted to an int"""
     initial_array = file_to_array(filename)
-    return [sub for ele, sub in groupby(initial_array, key=bool) if ele]
+    return [list(int(i) for i in sub) for ele, sub in groupby(initial_array, key=bool) if ele]
+
 
 
 class BColors:
