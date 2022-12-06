@@ -7,7 +7,6 @@ def get_marker(signal, char_count=4):
     for i in range(len(signal) - char_count):
         buffer = signal[i:char_count+i]
         if len(set(buffer)) == len(buffer):
-            print(buffer, i)
             return i + char_count
 
 
