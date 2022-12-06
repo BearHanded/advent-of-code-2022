@@ -4,20 +4,11 @@ INPUT = christmas_input.file_as_string('input.txt')
 
 
 def get_marker(signal, char_count=4):
-    buffer = [i for i in signal[:char_count]]
-    queue = [i for i in signal[char_count:]]
-    index = char_count
-
-    if len(set(buffer)) == len(buffer):
-        return index
-
-    for char in queue:
-        index += 1
-        buffer = buffer[1:]
-        buffer.append(char)
-
+    for i in range(len(signal) - char_count):
+        buffer = signal[i:char_count+i]
         if len(set(buffer)) == len(buffer):
-            return index
+            print(buffer, i)
+            return i + char_count
 
 
 assert get_marker('mjqjpqmgbljsphdztnvjfqwrcgsmlb', 4) == 7
@@ -32,4 +23,4 @@ assert get_marker('nppdvjthqldpwncqszvftbrmjlhg', 14) == 23
 assert get_marker('nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg', 14) == 29
 assert get_marker('zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw', 14) == 26
 print("Part One: ", get_marker(INPUT, 4))
-print("Part One: ", get_marker(INPUT, 14))
+print("Part Two: ", get_marker(INPUT, 14))
