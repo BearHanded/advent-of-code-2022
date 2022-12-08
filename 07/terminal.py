@@ -13,6 +13,8 @@ def build_dir_map(output):
     dir_map = defaultdict(int)
     for line in output:
         parts = line.split(" ")
+
+        # User Commands
         if parts[0] == "$":  # $ cd a / $ cd ..
             if parts[1] == "cd":
                 if parts[2] == "/":
@@ -23,10 +25,10 @@ def build_dir_map(output):
                     cursor.append(parts[2])
             elif parts[1] == "ls":
                 continue  # don't care atm
+        # Command Output
         elif parts[0] != "dir":
             for i in range(len(cursor)):
-                idx = tuple(cursor[:i + 1])
-                # print(idx)
+                idx = tuple(cursor[:i + 1])  # slice
                 dir_map[idx] += int(parts[0])
     return dir_map
 
