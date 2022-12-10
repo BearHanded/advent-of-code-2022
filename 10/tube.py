@@ -31,7 +31,7 @@ def signal_strength(commands):
                 signal_str += cycle * x
 
             # Print logic
-            pixel = "#" if x - 1 <= len(out[out_row]) <= x + 1 else "."
+            pixel = "#" if x - 1 <= len(out[out_row]) <= x + 1 else " "
             out[out_row].append(pixel)
             if cycle % 40 == 0:
                 out_row += 1
