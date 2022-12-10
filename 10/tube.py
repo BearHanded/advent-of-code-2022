@@ -4,40 +4,41 @@ INPUT = [[i for i in line.split(" ")] for line in christmas_input.file_to_array(
 TEST_INPUT = [[i for i in line.split(" ")] for line in christmas_input.file_to_array('test_input.txt')]
 
 CYCLE_TIMING = {
-    "noop": 0,
-    "addx": 1
+    "noop": 1,
+    "addx": 2
 }
 
 
-def queue_insert(queue, position, value):
-    size = len(queue)
-    if len(queue) < position + 1:
-        queue.extend([] for _ in range(size, position + 1))
-    queue[position].append(value)
+def pretty_display(pixels):
+    print("================================================================================")
+    for row in pixels:
+        print(' '.join(row))
+    print("================================================================================")
 
 
 def signal_strength(commands):
-    cycle = 1
+    cycle = 0
     signal_str = 0
-    queue = []
     x = 1
-    while len(queue) > 0 or cycle <= len(commands):
-        # Set queue
-        if cycle <= len(commands):
-            op = commands[cycle - 1]
-            queue_insert(queue, CYCLE_TIMING[op[0]], op)
+    out = [[], [], [], [], [], []]
+    out_row = 0
 
-        # Process
-        current_ops = queue.pop(0);
-        for executing_op in current_ops:
-            # if executing_op[0] == "noop":
-            if executing_op[0] == "addx":
-                x += int(executing_op[1])
-        if cycle == 20 or (cycle - 20) % 40 == 0:
-            signal_str += cycle * x
-            print("  ", cycle, x)
-            print("SIGNAL STR -", cycle, signal_str)
-        cycle += 1
+    for executing_op in commands:
+        for _ in range(CYCLE_TIMING[executing_op[0]]):
+            cycle += 1
+            # Signal Strength
+            if cycle == 20 or (cycle - 20) % 40 == 0:
+                signal_str += cycle * x
+
+            # Print logic
+            pixel = "#" if x - 1 <= len(out[out_row]) <= x + 1 else "."
+            out[out_row].append(pixel)
+            if cycle % 40 == 0:
+                out_row += 1
+
+        if executing_op[0] == "addx":
+            x += int(executing_op[1])
+    pretty_display(out)
     return signal_str
 
 
