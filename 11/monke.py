@@ -29,6 +29,9 @@ def parse_instructs(initial_state):
 
 def run_game(monkeys, calm_monkeys=True):
     total_rounds = 20 if calm_monkeys else 10000
+    mod = 1
+    for monkey in monkeys:
+        mod *= monkey["test"]
     for round_number in range(total_rounds):
         monkey_num = 0
         for monkey in monkeys:
@@ -48,6 +51,8 @@ def run_game(monkeys, calm_monkeys=True):
                 # Reduce
                 if calm_monkeys:
                     monkey["items"][0] = (monkey["items"][0] // 3)
+                else:
+                    monkey["items"][0] = (monkey["items"][0] % mod)
 
                 # Fling
                 if monkey["items"][0] % monkey["test"] == 0:
@@ -73,4 +78,4 @@ assert monkey_business(TEST_INPUT) == 10605
 print("Part One: ", monkey_business(INPUT))
 
 assert monkey_business(TEST_INPUT, calm_monkeys=False) == 2713310158
-print("Part Two: ", monkey_business(INPUT), calm_monkeys=False)
+print("Part Two: ", monkey_business(INPUT, calm_monkeys=False))
