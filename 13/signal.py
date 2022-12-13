@@ -4,10 +4,6 @@ INPUT = [[eval(j) for j in i] for i in christmas_input.file_to_subarray('input.t
 TEST_INPUT = [[eval(j) for j in i] for i in christmas_input.file_to_subarray('test_input.txt')]
 
 
-def left_list(args):
-    pass
-
-
 def check_order(left, right):
     print("  ", left, right)
     if type(left) == list and type(right) == list:
@@ -29,9 +25,11 @@ def check_order(left, right):
         if result is not None:
             return result
 
-    if len(left_list) > len(right_list):  # Right side ran out
-        return False
-    return None  # Ran out of values
+    print("          ", search_pair)
+    if len(left_list) == len(right_list):  # Right side ran out
+        return None
+    else:
+        return len(left_list) < len(right_list)
 
 
 def verification_value(data):
@@ -45,5 +43,7 @@ def verification_value(data):
     print("Correct", correct_indices, sum(correct_indices))
     return sum(correct_indices)
 
+
+# assert(verification_value([[[[5, 5], 1], [[5], 5]]]) == 0)
 assert verification_value(TEST_INPUT) == 13
 print("Part One: ", verification_value(INPUT))
